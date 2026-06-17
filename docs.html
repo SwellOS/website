@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Documentation — SwellOS</title>
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">
+    <img src="icon.svg" alt=""> SwellOS
+  </a>
+  <div class="links">
+    <a href="index.html">Home</a>
+    <a href="https://github.com/SwellOS">GitHub</a>
+  </div>
+</nav>
+
+<div class="docs">
+  <aside class="docs-sidebar">
+    <h3>Documentation</h3>
+    <ul>
+      <li><a href="#preface" class="active">Preface</a></li>
+      <li><a href="#introduction">Introduction</a></li>
+      <li><a href="#preparing">Preparing</a></li>
+      <li><a href="#kernel">Swell Kernel</a></li>
+      <li><a href="#runit">runit</a></li>
+      <li><a href="#sbpm">sbpm</a></li>
+      <li><a href="#core">Core Packages</a></li>
+      <li><a href="#desktop">Desktop</a></li>
+      <li><a href="#installer">Installer</a></li>
+    </ul>
+  </aside>
+
+  <main class="docs-content">
+    <h1>SwellOS Book</h1>
+    <p style="color:#666">This documentation follows the LFS/BLFS book structure. It is a work in progress — sections are added as components are implemented.</p>
+
+    <h2 id="preface">Preface</h2>
+    <p>SwellOS is an independent Linux distribution built from the ground up using the Linux From Scratch methodology. Every binary on your system is compiled from source. Nothing is installed unless you choose it.</p>
+    <p>This book guides you through building, installing, and using SwellOS — from kernel configuration to desktop setup.</p>
+
+    <h2 id="introduction">Introduction</h2>
+    <p>SwellOS targets modern x86_64 hardware. It uses:</p>
+    <ul>
+      <li>The <strong>Swell kernel</strong> — a monolithic fork of Linux with all common drivers baked in and performance tuning applied</li>
+      <li><strong>runit</strong> — a simple, fast init system</li>
+      <li><strong>sbpm</strong> — the Swell Blazing Package Manager, a source-based package manager written in Rust</li>
+      <li><strong>KDE Plasma on Wayland</strong> — the default desktop, fully opt-in</li>
+      <li><strong>Ext4</strong> — the default filesystem</li>
+    </ul>
+
+    <h2 id="preparing">Preparing</h2>
+    <h3>System Requirements</h3>
+    <ul>
+      <li>x86_64 CPU (2015 or later recommended)</li>
+      <li>2 GB RAM minimum (4 GB recommended for desktop)</li>
+      <li>10 GB disk space minimum (40 GB for desktop + development)</li>
+      <li>UEFI boot support</li>
+    </ul>
+    <h3>Building the Toolchain</h3>
+    <p>The toolchain (GCC, binutils, glibc, linux-api-headers) is built from source during installation. This is done once and cached.</p>
+
+    <h2 id="kernel">Swell Kernel</h2>
+    <p>The Swell kernel is a fork of Linux with the following design:</p>
+    <ul>
+      <li><strong>Monolithic</strong> — no loadable kernel module support. All drivers are compiled in.</li>
+      <li><strong>Performance-patched</strong> — custom scheduler tuning, preemptible, tickless.</li>
+      <li><strong>All common x86_64 drivers baked in:</strong> GPU (Intel/AMD/Nvidia), NVMe, SATA, wired/wireless networking, USB, Ext4/Btrfs/FAT/NTFS, input, audio.</li>
+      <li><strong>No legacy hardware:</strong> no IDE, floppy, ISA, 32-bit, ancient drivers.</li>
+      <li><strong>~4-6 MB uncompressed.</strong></li>
+    </ul>
+    <p>Every kernel config option has an in-tree comment explaining its purpose. The kernel does not need to be rebuilt when hardware changes — all common hardware is already supported.</p>
+
+    <h2 id="runit">runit</h2>
+    <p>SwellOS uses pure runit as its init system, with no wrappers.</p>
+    <pre><code>runit          # PID 1
+sv status dhcpcd
+sv up dhcpcd
+sv down dhcpcd</code></pre>
+    <p>Service directories live in <code>/etc/sv/</code>. Enabled services are symlinked in <code>/var/service/</code>.</p>
+    <p>Base services: <code>udevd</code>, <code>dhcpcd</code>, <code>getty@tty1</code>, <code>sshd</code> (optional).</p>
+
+    <h2 id="sbpm">sbpm — Swell Blazing Package Manager</h2>
+    <p>sbpm is the source-based package manager for SwellOS, written in Rust.</p>
+    <pre><code>sbpm -S firefox          # download, build, install
+sbpm -R firefox          # remove
+sbpm -U                  # upgrade all packages
+sbpm -Ss query           # search
+sbpm -Syu                # sync + upgrade
+sbpm -L                  # list installed
+sbpm -I firefox          # package info
+sbpm freeze              # pin all packages
+sbpm unfreeze            # unpin</code></pre>
+    <p>Package build scripts are bash files (<code>swellbuild</code>) that define <code>pkg_fetch</code>, <code>pkg_unpack</code>, <code>pkg_build</code>, and <code>pkg_install</code> functions. sbpm provides a standard library of helper functions.</p>
+
+    <h2 id="core">Core Packages</h2>
+    <p>The core system packages include:</p>
+    <ul>
+      <li><strong>dash</strong> — /bin/sh</li>
+      <li><strong>glibc</strong> — standard C library</li>
+      <li><strong>gcc</strong> — C/C++ compiler</li>
+      <li><strong>binutils</strong> — assembler, linker, utilities</li>
+      <li><strong>linux-api-headers</strong> — kernel headers for userspace</li>
+      <li><strong>runit</strong> — init system</li>
+      <li><strong>sbpm</strong> — package manager</li>
+    </ul>
+
+    <h2 id="desktop">Desktop</h2>
+    <p>The default desktop is <strong>KDE Plasma on Wayland</strong>. Installed via the <code>kde-plasma</code> metapackage:</p>
+    <pre><code>sbpm -S kde-plasma</code></pre>
+    <p>This pulls in Plasma, Wayland, PipeWire, dbus, elogind, and NetworkManager. The base system is CLI-only — the desktop is entirely opt-in.</p>
+
+    <h2 id="installer">Installer</h2>
+    <p>The SwellOS installer (<code>swell-install</code>) is a terminal UI that guides you through:</p>
+    <ol>
+      <li>Partitioning the disk (guided or manual)</li>
+      <li>Selecting the filesystem (Ext4 default, Btrfs optional)</li>
+      <li>Selecting metapackages (desktop, dev tools, browser, etc.)</li>
+      <li>Building the system from source</li>
+      <li>Configuring the system (hostname, users, timezone)</li>
+      <li>Installing GRUB</li>
+      <li>Rebooting into SwellOS</li>
+    </ol>
+  </main>
+</div>
+
+<footer>
+  <p>&copy; 2025 SwellOS. Kernel: GPLv2. Tooling: MIT.</p>
+  <p><a href="https://github.com/SwellOS">github.com/SwellOS</a></p>
+</footer>
+
+</body>
+</html>

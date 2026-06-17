@@ -4,85 +4,160 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SwellOS — Your system. Your rules.</title>
+<link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-  <div class="container">
-    <h1>SwellOS</h1>
-    <p class="tagline"><em>Your system. Your rules.</em></p>
-  </div>
-</header>
 
-<section id="hero">
+<nav>
+  <a href="index.html" class="logo">
+    <img src="icon.svg" alt=""> SwellOS
+  </a>
+  <div class="links">
+    <a href="index.html">Home</a>
+    <a href="#features">Features</a>
+    <a href="#install">Install</a>
+    <a href="#commands">Commands</a>
+    <a href="#faq">FAQ</a>
+    <a href="https://github.com/SwellOS">GitHub</a>
+  </div>
+</nav>
+
+<div class="hero">
   <div class="container">
-    <h2>An independent, ultra-lightweight Linux distribution</h2>
-    <p>Source-based. Rolling release. Modern x86_64.</p>
-    <p>Built from LFS/BLFS. Designed as a daily driver.</p>
+    <h1><span>SwellOS</span></h1>
+    <p class="tagline">Your system. Your rules.</p>
+    <p class="sub">An independent, ultra-lightweight Linux distribution. Source-based. Rolling release. Modern x86_64.</p>
     <div class="buttons">
-      <a href="https://github.com/SwellOS" class="btn">GitHub</a>
-      <a href="https://github.com/SwellOS/swellos" class="btn btn-outline">Get Started</a>
+      <a href="https://github.com/SwellOS/swellos" class="btn btn-primary">Get Started</a>
+      <a href="https://github.com/SwellOS" class="btn btn-outline">GitHub &rarr;</a>
     </div>
   </div>
-</section>
+</div>
 
-<section id="features">
+<section id="features" class="features">
   <div class="container">
+    <h2>Design</h2>
     <div class="grid">
       <div class="card">
         <h3>Swell Kernel</h3>
-        <p>Monolithic, performance-patched, no modules. All common x86_64 drivers baked in. Every config option documented.</p>
+        <p>Monolithic, performance-patched, no modules. All common x86_64 drivers baked in. Every config option documented in-tree.</p>
       </div>
       <div class="card">
         <h3>runit</h3>
-        <p>Simple, fast init. No systemd. No bloat. Base services only — add what you need.</p>
+        <p>Simple, fast init. No systemd. Base services only — add what you need. <code>/etc/sv/</code> directories, <code>sv</code> commands.</p>
       </div>
       <div class="card">
         <h3>sbpm</h3>
-        <p>Swell Blazing Package Manager. Source-based. Written in Rust. Simple topological dependency resolution.</p>
+        <p>Swell Blazing Package Manager. Source-based. Written in Rust. Topological dependency resolution. Community binary cache.</p>
       </div>
       <div class="card">
-        <h3>KDE Plasma</h3>
-        <p>Modern desktop on Wayland. PipeWire audio. Fully opt-in — base is CLI only.</p>
+        <h3>KDE Plasma on Wayland</h3>
+        <p>Modern desktop, fully opt-in. Wayland-native, PipeWire audio. Base system is CLI-only — you choose your desktop.</p>
       </div>
       <div class="card">
-        <h3>Ext4</h3>
-        <p>Bulletproof filesystem. Btrfs available at install time. Simple, reliable, boring.</p>
+        <h3>LFS/BLFS based</h3>
+        <p>Built from Linux From Scratch. You compile every binary on your system. Nothing is there by accident.</p>
       </div>
       <div class="card">
         <h3>Rolling + Freeze</h3>
-        <p>Rolling release with <code>sbpm freeze</code> to pin everything. Update on your terms.</p>
+        <p>Rolling release with <code>sbpm freeze</code> to pin all packages. Update on your terms. 6-month stable snapshots.</p>
       </div>
+    </div>
+
+    <table class="design-table" style="margin-top:48px">
+      <tr><th>Component</th><th>Choice</th></tr>
+      <tr><td>Kernel</td><td>Swell kernel (forked Linux, monolithic, no modules)</td></tr>
+      <tr><td>Init</td><td>runit</td></tr>
+      <tr><td>Desktop</td><td>KDE Plasma on Wayland (opt-in)</td></tr>
+      <tr><td>Package manager</td><td>sbpm (Rust, source-based)</td></tr>
+      <tr><td>Audio</td><td>PipeWire + WirePlumber</td></tr>
+      <tr><td>Filesystem</td><td>Ext4 (Btrfs optional)</td></tr>
+      <tr><td>Architecture</td><td>x86_64 only (modern, no legacy)</td></tr>
+      <tr><td>Release model</td><td>Rolling with freeze snapshots</td></tr>
+    </table>
+  </div>
+</section>
+
+<section id="philosophy" class="phil">
+  <div class="container">
+    <h2>Philosophy</h2>
+    <p class="quote">"You built every binary on your system. You know exactly what runs on your machine — not because you trust a package maintainer, but because you compiled it yourself."</p>
+    <ul class="points">
+      <li>Nothing is installed unless you ask for it</li>
+      <li>Every kernel config option has a documented rationale</li>
+      <li>No bloat — no systemd, no dbus, no PulseAudio in the base system</li>
+      <li>You control updates — <code>sbpm freeze</code> pins everything</li>
+      <li>Simple, auditable, hackable</li>
+    </ul>
+  </div>
+</section>
+
+<section id="install" class="how-to">
+  <div class="container">
+    <h2>Install</h2>
+    <p style="color:#888;text-align:center;margin-bottom:8px">Boot the live ISO and run:</p>
+    <code class="big">swell-install</code>
+    <div class="flow-steps">
+      <div class="flow-step"><span class="num">1</span><span class="text">Partition disk</span></div>
+      <div class="flow-step"><span class="num">2</span><span class="text">Select filesystem</span></div>
+      <div class="flow-step"><span class="num">3</span><span class="text">Select metapackages</span></div>
+      <div class="flow-step"><span class="num">4</span><span class="text">Build from source</span></div>
+      <div class="flow-step"><span class="num">5</span><span class="text">Configure system</span></div>
+      <div class="flow-step"><span class="num">6</span><span class="text">Reboot</span></div>
     </div>
   </div>
 </section>
 
-<section id="install">
+<section id="commands" class="commands">
   <div class="container">
-    <h2>Install</h2>
-    <p>Boot the live ISO and run:</p>
-    <pre><code>swell-install</code></pre>
-    <p>Follow the TUI — partition, select metapackages, build from source, reboot.</p>
+    <h2>Package Manager</h2>
+    <pre><code>sbpm -S firefox          # download source, patch, build, install
+sbpm -R firefox          # remove package and all its files
+sbpm -U                  # rebuild all out-of-date packages
+sbpm -Ss multimedia      # search available packages
+sbpm -Syu                # sync repo metadata + upgrade all
+sbpm -L                  # list installed packages
+sbpm -I firefox          # show package info
+sbpm freeze              # pin all installed packages
+sbpm unfreeze            # unpin and resume rolling</code></pre>
   </div>
 </section>
 
-<section id="commands">
+<section id="faq" class="faq">
   <div class="container">
-    <h2>Package Manager</h2>
-    <pre><code>sbpm -S firefox          # install
-sbpm -R firefox          # remove
-sbpm -U                  # upgrade all
-sbpm -Ss multimedia      # search
-sbpm -Syu                # sync + upgrade
-sbpm freeze              # pin all packages</code></pre>
+    <h2>FAQ</h2>
+    <div class="q">
+      <h3>Why source-based? Isn't that slow?</h3>
+      <p>The base system is built once during install. After that, only changed packages are rebuilt. An optional community binary cache is available for heavy packages like Firefox and LLVM.</p>
+    </div>
+    <div class="q">
+      <h3>Why no kernel modules?</h3>
+      <p>All common x86_64 drivers are compiled directly into the kernel. No module loading, no driver management, no "you need to install firmware" headaches. It just works on modern hardware.</p>
+    </div>
+    <div class="q">
+      <h3>Why runit instead of systemd?</h3>
+      <p>runit is simpler — a few hundred lines of C, reads flat files in /etc/sv/, does one thing well. No udev integration, no journal, no logind. dbus/elogind are pulled in only when a desktop is installed.</p>
+    </div>
+    <div class="q">
+      <h3>Can I use a different desktop?</h3>
+      <p>Yes. The base is CLI-only. KDE Plasma is the default desktop metapackage, but you can install GNOME, Sway, i3, or any other WM/DE via sbpm.</p>
+    </div>
+    <div class="q">
+      <h3>How do I update?</h3>
+      <p><code>sbpm -Syu</code> syncs the repo metadata and rebuilds every out-of-date package from source. Use <code>sbpm freeze</code> to pin versions if you want stability.</p>
+    </div>
+    <div class="q">
+      <h3>Is this ready to use?</h3>
+      <p>SwellOS is in early development. See the <a href="https://github.com/SwellOS/swellos/blob/main/ROADMAP.md">roadmap</a> for progress toward the v0.1 alpha release.</p>
+    </div>
   </div>
 </section>
 
 <footer>
-  <div class="container">
-    <p>&copy; 2025 SwellOS. Kernel: GPLv2. Tooling: MIT.</p>
-    <p><a href="https://github.com/SwellOS">github.com/SwellOS</a></p>
-  </div>
+  <p>&copy; 2025 SwellOS. Kernel: GPLv2. Tooling: MIT.</p>
+  <p><a href="https://github.com/SwellOS">github.com/SwellOS</a></p>
 </footer>
+
 </body>
 </html>
