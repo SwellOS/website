@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SwellOS — Your system. Your rules.</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="container">
+    <h1>SwellOS</h1>
+    <p class="tagline"><em>Your system. Your rules.</em></p>
+  </div>
+</header>
+
+<section id="hero">
+  <div class="container">
+    <h2>An independent, ultra-lightweight Linux distribution</h2>
+    <p>Source-based. Rolling release. Modern x86_64.</p>
+    <p>Built from LFS/BLFS. Designed as a daily driver.</p>
+    <div class="buttons">
+      <a href="https://github.com/SwellOS" class="btn">GitHub</a>
+      <a href="https://github.com/SwellOS/swellos" class="btn btn-outline">Get Started</a>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="container">
+    <div class="grid">
+      <div class="card">
+        <h3>Swell Kernel</h3>
+        <p>Monolithic, performance-patched, no modules. All common x86_64 drivers baked in. Every config option documented.</p>
+      </div>
+      <div class="card">
+        <h3>runit</h3>
+        <p>Simple, fast init. No systemd. No bloat. Base services only — add what you need.</p>
+      </div>
+      <div class="card">
+        <h3>sbpm</h3>
+        <p>Swell Blazing Package Manager. Source-based. Written in Rust. Simple topological dependency resolution.</p>
+      </div>
+      <div class="card">
+        <h3>KDE Plasma</h3>
+        <p>Modern desktop on Wayland. PipeWire audio. Fully opt-in — base is CLI only.</p>
+      </div>
+      <div class="card">
+        <h3>Ext4</h3>
+        <p>Bulletproof filesystem. Btrfs available at install time. Simple, reliable, boring.</p>
+      </div>
+      <div class="card">
+        <h3>Rolling + Freeze</h3>
+        <p>Rolling release with <code>sbpm freeze</code> to pin everything. Update on your terms.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="install">
+  <div class="container">
+    <h2>Install</h2>
+    <p>Boot the live ISO and run:</p>
+    <pre><code>swell-install</code></pre>
+    <p>Follow the TUI — partition, select metapackages, build from source, reboot.</p>
+  </div>
+</section>
+
+<section id="commands">
+  <div class="container">
+    <h2>Package Manager</h2>
+    <pre><code>sbpm -S firefox          # install
+sbpm -R firefox          # remove
+sbpm -U                  # upgrade all
+sbpm -Ss multimedia      # search
+sbpm -Syu                # sync + upgrade
+sbpm freeze              # pin all packages</code></pre>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>&copy; 2025 SwellOS. Kernel: GPLv2. Tooling: MIT.</p>
+    <p><a href="https://github.com/SwellOS">github.com/SwellOS</a></p>
+  </div>
+</footer>
+</body>
+</html>
