@@ -15,6 +15,8 @@
   </a>
   <div class="links">
     <a href="index.html">Home</a>
+    <a href="docs.html" class="active">Docs</a>
+    <a href="index.html#download">Download</a>
     <a href="https://github.com/SwellOS">GitHub</a>
   </div>
 </nav>
@@ -36,11 +38,16 @@
   </aside>
 
   <main class="docs-content">
+    <div class="dl-bar">
+      <a href="https://github.com/SwellOS/swellos/releases" class="btn btn-primary">Download ISO &rarr;</a>
+      <span class="dl-bar-meta">SwellOS 2026.06 &middot; x86_64 &middot; Live USB</span>
+    </div>
+
     <h1>SwellOS Book</h1>
     <p style="color:#666">This documentation follows the LFS/BLFS book structure. It is a work in progress — sections are added as components are implemented.</p>
 
     <h2 id="preface">Preface</h2>
-    <p>SwellOS is an independent Linux distribution built from the ground up using the Linux From Scratch methodology. Every binary on your system is compiled from source. Nothing is installed unless you choose it.</p>
+    <p>SwellOS is an independent Linux distribution built from the ground up using the Linux From Scratch methodology. Pre-compiled binary packages with full source available. Nothing is installed unless you choose it.</p>
     <p>This book guides you through building, installing, and using SwellOS — from kernel configuration to desktop setup.</p>
 
     <h2 id="introduction">Introduction</h2>
@@ -48,7 +55,7 @@
     <ul>
       <li>The <strong>Swell kernel</strong> — a monolithic fork of Linux with all common drivers baked in and performance tuning applied</li>
       <li><strong>runit</strong> — a simple, fast init system</li>
-      <li><strong>sbpm</strong> — the Swell Blazing Package Manager, a source-based package manager written in Rust</li>
+      <li><strong>sbpm</strong> — the Swell Blazing Package Manager, a binary package manager written in Rust</li>
       <li><strong>KDE Plasma on Wayland</strong> — the default desktop, fully opt-in</li>
       <li><strong>Ext4</strong> — the default filesystem</li>
     </ul>
@@ -95,7 +102,7 @@ sbpm -L                  # list installed
 sbpm -I firefox          # package info
 sbpm freeze              # pin all packages
 sbpm unfreeze            # unpin</code></pre>
-    <p>Packages are distributed as pre-compiled <code>.swell</code> archives. Source build scripts are maintained for the official build server and optional local compilation.</p>
+    <p>Packages are distributed as pre-compiled <code>.swell</code> archives (tar.zst containing <code>metadata.toml</code>, <code>manifest</code>, and <code>root/</code>). Build scripts are maintained for the official build server and optional local compilation via <code>swell-build</code>.</p>
 
     <h2 id="core">Core Packages</h2>
     <p>The core system packages include:</p>
@@ -129,7 +136,7 @@ sbpm unfreeze            # unpin</code></pre>
 </div>
 
 <footer>
-  <p>&copy; 2025 SwellOS. Kernel: GPLv2. Tooling: MIT.</p>
+  <p>&copy; 2026 SwellOS. Kernel: GPLv2. Tooling: MIT.</p>
   <p><a href="https://github.com/SwellOS">github.com/SwellOS</a></p>
 </footer>
 
