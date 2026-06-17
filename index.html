@@ -27,7 +27,7 @@
   <div class="container">
     <h1><span>SwellOS</span></h1>
     <p class="tagline">Your system. Your rules.</p>
-    <p class="sub">An independent, ultra-lightweight Linux distribution. Source-based. Rolling release. Modern x86_64.</p>
+    <p class="sub">An independent, ultra-lightweight Linux distribution. Binary-based. Rolling release. Modern x86_64.</p>
     <div class="buttons">
       <a href="https://github.com/SwellOS/swellos" class="btn btn-primary">Get Started</a>
       <a href="https://github.com/SwellOS" class="btn btn-outline">GitHub &rarr;</a>
@@ -49,7 +49,7 @@
       </div>
       <div class="card">
         <h3>sbpm</h3>
-        <p>Swell Blazing Package Manager. Source-based. Written in Rust. Topological dependency resolution. Community binary cache.</p>
+        <p>Swell Blazing Package Manager. Binary packages. Written in Rust. Topological dependency resolution. Optional source builds.</p>
       </div>
       <div class="card">
         <h3>KDE Plasma on Wayland</h3>
@@ -57,7 +57,7 @@
       </div>
       <div class="card">
         <h3>LFS/BLFS based</h3>
-        <p>Built from Linux From Scratch. You compile every binary on your system. Nothing is there by accident.</p>
+        <p>Built from Linux From Scratch methodology. Pre-compiled binaries with full source available. Nothing is there by accident.</p>
       </div>
       <div class="card">
         <h3>Rolling + Freeze</h3>
@@ -70,7 +70,7 @@
       <tr><td>Kernel</td><td>Swell kernel (forked Linux, monolithic, no modules)</td></tr>
       <tr><td>Init</td><td>runit</td></tr>
       <tr><td>Desktop</td><td>KDE Plasma on Wayland (opt-in)</td></tr>
-      <tr><td>Package manager</td><td>sbpm (Rust, source-based)</td></tr>
+      <tr><td>Package manager</td>      <td>sbpm (Rust, binary packages)</td></tr>
       <tr><td>Audio</td><td>PipeWire + WirePlumber</td></tr>
       <tr><td>Filesystem</td><td>Ext4 (Btrfs optional)</td></tr>
       <tr><td>Architecture</td><td>x86_64 only (modern, no legacy)</td></tr>
@@ -82,7 +82,7 @@
 <section id="philosophy" class="phil">
   <div class="container">
     <h2>Philosophy</h2>
-    <p class="quote">"You built every binary on your system. You know exactly what runs on your machine — not because you trust a package maintainer, but because you compiled it yourself."</p>
+    <p class="quote">"Pre-compiled, verified binaries. Full source available. You choose what runs on your machine."</p>
     <ul class="points">
       <li>Nothing is installed unless you ask for it</li>
       <li>Every kernel config option has a documented rationale</li>
@@ -102,7 +102,7 @@
       <div class="flow-step"><span class="num">1</span><span class="text">Partition disk</span></div>
       <div class="flow-step"><span class="num">2</span><span class="text">Select filesystem</span></div>
       <div class="flow-step"><span class="num">3</span><span class="text">Select metapackages</span></div>
-      <div class="flow-step"><span class="num">4</span><span class="text">Build from source</span></div>
+      <div class="flow-step"><span class="num">4</span><span class="text">Install packages</span></div>
       <div class="flow-step"><span class="num">5</span><span class="text">Configure system</span></div>
       <div class="flow-step"><span class="num">6</span><span class="text">Reboot</span></div>
     </div>
@@ -112,9 +112,9 @@
 <section id="commands" class="commands">
   <div class="container">
     <h2>Package Manager</h2>
-    <pre><code>sbpm -S firefox          # download source, patch, build, install
+    <pre><code>sbpm -S firefox          # download and install binary package
 sbpm -R firefox          # remove package and all its files
-sbpm -U                  # rebuild all out-of-date packages
+sbpm -U                  # upgrade all packages
 sbpm -Ss multimedia      # search available packages
 sbpm -Syu                # sync repo metadata + upgrade all
 sbpm -L                  # list installed packages
@@ -128,8 +128,8 @@ sbpm unfreeze            # unpin and resume rolling</code></pre>
   <div class="container">
     <h2>FAQ</h2>
     <div class="q">
-      <h3>Why source-based? Isn't that slow?</h3>
-      <p>The base system is built once during install. After that, only changed packages are rebuilt. An optional community binary cache is available for heavy packages like Firefox and LLVM.</p>
+      <h3>Binary or source?</h3>
+      <p>sbpm installs pre-compiled binary packages by default — fast like any binary distro. Source builds are available for users who want custom compile flags.</p>
     </div>
     <div class="q">
       <h3>Why no kernel modules?</h3>
@@ -145,7 +145,7 @@ sbpm unfreeze            # unpin and resume rolling</code></pre>
     </div>
     <div class="q">
       <h3>How do I update?</h3>
-      <p><code>sbpm -Syu</code> syncs the repo metadata and rebuilds every out-of-date package from source. Use <code>sbpm freeze</code> to pin versions if you want stability.</p>
+      <p><code>sbpm -Syu</code> syncs the repo metadata and upgrades all out-of-date packages. Use <code>sbpm freeze</code> to pin versions if you want stability.</p>
     </div>
     <div class="q">
       <h3>Is this ready to use?</h3>

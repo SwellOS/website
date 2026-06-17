@@ -85,8 +85,8 @@ sv down dhcpcd</code></pre>
     <p>Base services: <code>udevd</code>, <code>dhcpcd</code>, <code>getty@tty1</code>, <code>sshd</code> (optional).</p>
 
     <h2 id="sbpm">sbpm — Swell Blazing Package Manager</h2>
-    <p>sbpm is the source-based package manager for SwellOS, written in Rust.</p>
-    <pre><code>sbpm -S firefox          # download, build, install
+    <p>sbpm is the binary package manager for SwellOS, written in Rust.</p>
+    <pre><code>sbpm -S firefox          # download and install binary package
 sbpm -R firefox          # remove
 sbpm -U                  # upgrade all packages
 sbpm -Ss query           # search
@@ -95,7 +95,7 @@ sbpm -L                  # list installed
 sbpm -I firefox          # package info
 sbpm freeze              # pin all packages
 sbpm unfreeze            # unpin</code></pre>
-    <p>Package build scripts are bash files (<code>swellbuild</code>) that define <code>pkg_fetch</code>, <code>pkg_unpack</code>, <code>pkg_build</code>, and <code>pkg_install</code> functions. sbpm provides a standard library of helper functions.</p>
+    <p>Packages are distributed as pre-compiled <code>.swell</code> archives. Source build scripts are maintained for the official build server and optional local compilation.</p>
 
     <h2 id="core">Core Packages</h2>
     <p>The core system packages include:</p>
@@ -120,7 +120,7 @@ sbpm unfreeze            # unpin</code></pre>
       <li>Partitioning the disk (guided or manual)</li>
       <li>Selecting the filesystem (Ext4 default, Btrfs optional)</li>
       <li>Selecting metapackages (desktop, dev tools, browser, etc.)</li>
-      <li>Building the system from source</li>
+      <li>Installing packages from the repo</li>
       <li>Configuring the system (hostname, users, timezone)</li>
       <li>Installing GRUB</li>
       <li>Rebooting into SwellOS</li>
