@@ -116,10 +116,15 @@ sbpm unfreeze            # unpin</code></pre>
       <li><strong>sbpm</strong> — package manager</li>
     </ul>
 
-    <h2 id="desktop">Desktop</h2>
-    <p>The default desktop is <strong>KDE Plasma on Wayland</strong>. Installed via the <code>kde-plasma</code> metapackage:</p>
-    <pre><code>sbpm -S kde-plasma</code></pre>
-    <p>This pulls in Plasma, Wayland, PipeWire, dbus, elogind, and NetworkManager. The base system is CLI-only — the desktop is entirely opt-in.</p>
+    <h2 id="desktop">Desktop Options</h2>
+    <p>SwellOS offers multiple desktop environments and window managers, all opt-in. The flagship is <strong>KDE Plasma on Wayland</strong>.</p>
+    <pre><code>sbpm -S kde-plasma     # KDE Plasma 6 on Wayland (flagship)
+sbpm -S gnome          # GNOME 47 on Wayland
+sbpm -S xfce4          # XFCE 4.20 lightweight desktop
+sbpm -S hyprland       # Hyprland Wayland compositor
+sbpm -S i3             # i3 tiling window manager
+sbpm -S windowmaker    # WindowMaker NeXTSTEP-like WM</code></pre>
+    <p>Each metapackage pulls in the required infrastructure (Wayland or Xorg, PipeWire, dbus, elogind, polkit). The base system is CLI-only — the desktop is entirely opt-in.</p>
 
     <h2 id="installer">Installer</h2>
     <p>The SwellOS installer (<code>swell-install</code>) is a terminal UI that guides you through:</p>
